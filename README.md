@@ -33,8 +33,10 @@ optional arguments:
 ## Example
 
 ```sh
-python3 vcs.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png
+python3 vcs.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png --start 2 --freq 5 
 ```
+
+![Image](<https://i.imgtc.com/f7KnGXE.png>)
 
 ## Requirements
 
