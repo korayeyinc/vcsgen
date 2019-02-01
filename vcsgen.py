@@ -11,6 +11,7 @@ Author:   Koray Eyinç <koray.eyinc@gmail.com>
 
 import argparse
 import os
+import shutil
 import sys
 import vlc
 
@@ -76,7 +77,7 @@ class VLC():
 
     def check_snap(self):
         try:
-            frame = sorted(glob(os.path.join("out", "snapshots", "*")))[-1]
+            frame = sorted(glob(os.path.join("out", "snaps", "*")))[-1]
             if (os.stat(frame).st_size < 10000):
                 os.remove(frame)
                 return False
@@ -177,7 +178,7 @@ class VLC():
 
     def snapshot(self):
         '''Takes snapshots using the width/height parameters.'''
-        out_dir = os.path.join("out", "snapshots")
+        out_dir = os.path.join("out", "snaps")
         if (self.player.video_take_snapshot(0, out_dir, self.width, self.height) == 0):
             return True
         else:
@@ -197,9 +198,9 @@ class VLC():
 
 
     def genvcs(self):
-        '''Generates the video contact sheet.'''
+        '''Generates video contact sheet output from snapshot images.'''
         
-        frames = sorted(glob(os.path.join("out", "snapshots", "*.png")))
+        frames = sorted(glob(os.path.join("out", "snaps", "*.png")))
         cell = Image.open(frames[0])
         
         header = 100
@@ -249,7 +250,7 @@ class VLC():
             y += h
         
         filename = self.trname + ".png"
-        vcs = os.path.join("out", "contact_sheets", filename)
+        vcs = os.path.join("out", "vcs", filename)
         
         img.save(vcs)
 
@@ -259,31 +260,29 @@ class VLC():
         sys.exit(0)
 
 
-def check_dirs():
-    '''Checks if snapshots and contact_sheets directories exist.'''
-    dirname = os.path.join("out", "snapshots")
-    dst = Path(dirname)
-    if (dst.exists()):
-        # remove snapshots taken during the last session
-        files = glob(os.path.join(dirname, "*"))
-        for f in files:
-            os.remove(f)
-    else:
-        dst.mkdir()
+def check_dirs(keep):
+    '''Checks if out, vcs and snaps directories exist.'''
+    out_dir = "out"
+    dst = Path(out_dir)
     
-    dirname = os.path.join("out", "contact_sheets")
-    dst = Path(dirname)
-    if (dst.exists()):
+    if (dst.exists() and keep == "no"):
+        # clean generated directories and files
+        shutil.rmtree(out_dir)
+    elif (dst.exists() and keep == "yes"):
         pass
     else:
         dst.mkdir()
     
-    dirname = os.path.join("tests", "data", "logo")
-    dst = Path(dirname)
-    if (dst.exists()):
+    snaps_dir = os.path.join("out", "snaps")
+    snaps = Path(snaps_dir)
+    vcs_dir = os.path.join("out", "vcs")
+    vcs = Path(vcs_dir)
+    
+    if (snaps.exists() and vcs.exists()):
         pass
     else:
-        dst.mkdir()
+        snaps.mkdir()
+        vcs.mkdir()
 
 
 def norm(fpath):
@@ -379,6 +378,12 @@ if __name__ == "__main__":
         default = logo,
         help = "Logo image path")
     
+    parser.add_argument(
+        "--keep",
+        type = str,
+        default = "no",
+        help = "Keep files generated previously")
+    
     # parse command line arguments
     args = parser.parse_args()
     
@@ -386,7 +391,7 @@ if __name__ == "__main__":
     args.input = norm(args.input)
     
     # create directories for snapshots and contact sheets if they don't exist
-    check_dirs()
+    check_dirs(args.keep)
     
     # create VLC instantance
     app = VLC(args)

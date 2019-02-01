@@ -1,6 +1,7 @@
 # vcsgen
 Command line utility for generating video contact sheets.
 Note: Work in progress
+
 ## Usage
 ```sh
 $ python3 vcsgen.py --help
@@ -33,7 +34,7 @@ optional arguments:
 ## Example
 
 ```sh
-python3 vcs.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png --start 2 --freq 5 
+python3 vcsgen.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png --start 4 --freq 4 --rows 3 --columns 3
 ```
 
 ![Image](<https://i.imgtc.com/f7KnGXE.png>)
@@ -56,4 +57,3 @@ apt install python3-pil python3-vlc
 * Add support for some kind of blank-scene detection.
 * Fix random delays appearing in time-codes.
 * Fix audio information in contact sheet header.
-* Add support for "out" directory creation/cleaning options.
