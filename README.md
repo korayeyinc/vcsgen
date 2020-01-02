@@ -37,7 +37,7 @@ optional arguments:
 python3 vcsgen.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png --start 4 --freq 4 --rows 3 --columns 3
 ```
 
-![Image](<https://drive.google.com/file/d/1-kfWtnGTLREMnh6Ye1F05COO5caH5BWl/view?usp=sharing>)
+![Image](<https://drive.google.com/file/d/1-kfWtnGTLREMnh6Ye1F05COO5caH5BWl>)
 
 ## Requirements
 
