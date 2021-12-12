@@ -37,7 +37,7 @@ optional arguments:
 python3 vcsgen.py --input tests/data/videos/sintel.mp4 --logo tests/data/logo/logo.png --start 4 --freq 4 --rows 3 --columns 3
 ```
 
-![Image](<https://drive.google.com/file/d/1-kfWtnGTLREMnh6Ye1F05COO5caH5BWl>)
+![Image](<https://drive.google.com/file/d/1-kfWtnGTLREMnh6Ye1F05COO5caH5BWl/view?usp=sharing>)
 
 ## Requirements
 
@@ -50,6 +50,11 @@ Python modules:
 Debian/Ubuntu:
 ```sh
 apt install python3-pil python3-vlc
+```
+
+Arch/Manjaro:
+```sh
+pacman -S python-pillow python-vlc
 ```
 
 ## TODO
