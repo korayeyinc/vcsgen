@@ -1,6 +1,6 @@
 # vcsgen
 Command line utility for generating video contact sheets.
-Note: Work in progress
+
 
 ## Usage
 ```sh
